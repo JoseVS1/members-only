@@ -18,7 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use(session({
-    store: new (require("connect-pg-simple")(session)),
+    store: new (require("connect-pg-simple")(session))({
+        conString: process.env.CONNECTION_URI,
+        ssl: { rejectUnauthorized: false }
+    }),
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
