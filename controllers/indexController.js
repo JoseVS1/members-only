@@ -3,7 +3,7 @@ const db = require("../config/database");
 
 const getIndexPage = async (req, res) => {
     try {
-        const {rows} = await db.query("SELECT posts.id, posts.title, posts.message_text, posts.created_at, users.username FROM posts INNER JOIN users ON posts.user_id = users.id");
+        const {rows} = await db.query("SELECT posts.id, posts.title, posts.message_text, posts.created_at, users.username FROM posts INNER JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC");
         const posts = rows;
 
         res.render("index", {user: req.user, posts});
